@@ -6,7 +6,7 @@
 - Pandas
 - Numpy
 - Scikit Learn
-
+- SpeechRecognition, pyaudio
 ### How to run
 `$ python server.py`
 
