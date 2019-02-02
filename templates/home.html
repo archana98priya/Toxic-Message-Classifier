@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<!-- <link rel="stylesheet" type="text/css" href="../static/css/styles.css"> -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.2.1/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-F7cPHYSdE3FzBKvdxDKyFow9Y28Yq7KGHQOKpOI+rwc8s6jJnp///mpEJAib2EM6" crossorigin="anonymous"><body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Toxic Message Classifier</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            
+          </nav>
+	<header>
+		<div class="container">
+		
+		<h2>Toxic message classifier</h2>
+		
+	</div>
+    </header>
+    <div class="form-group">
+
+		<form action="/api" method="POST">
+		<p>Enter Your Message Here</p>
+		<!-- <input type="text" name="comment"/> -->
+		<textarea name="message" rows="4" cols="50"></textarea>
+		<br/>
+        <!-- <button type="button" class="btn btn-primary">Primary</button> -->
+		<input type="submit" class="btn btn-primary" value="classify">
+		
+	</form>
+		
+	</div>
+
+	
+	</div>
+
+	
+	
+
+</body>
+</html>
