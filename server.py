@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify, render_template, url_for, request, re
 import pickle
 from scipy.sparse import hstack
 from link_extract import get_body
-from sp_recog import get_speech
+from sp_recog import get_speech, allowed_file
 from werkzeug.utils import secure_filename
 import os
 
@@ -59,6 +59,7 @@ def predict():
 def predict_from_link():
     # Get the data from the POST request.
     data = get_body(request.form['message'])
+    # print(data)
 
     test_pd = pd.DataFrame()
     test_pd['comment_text'] = [data]
@@ -87,35 +88,38 @@ def predict_from_link():
 def predict_from_upload():
     UPLOAD_FOLDER = './uploads'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
     file = request.files['file']
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     
 
-    data = get_speech(filename)
+        data = get_speech(filename)
 
-    test_pd = pd.DataFrame()
-    test_pd['comment_text'] = [data]
-    test_pd = test_pd['comment_text']
-    
-    test_feat = word_vectorizer.transform(test_pd)
-    test_feat = hstack([test_feat])
+        test_pd = pd.DataFrame()
+        test_pd['comment_text'] = [data]
+        test_pd = test_pd['comment_text']
+        
+        test_feat = word_vectorizer.transform(test_pd)
+        test_feat = hstack([test_feat])
 
-    submission = {}
-    for class_name in class_names:                                          
-        submission[class_name] = classifier[class_name].predict_proba(test_feat)[:, 1]
-    
-    classes = {}
-    for key in submission.keys():
-        classes[key] = [False, 0]
-        classes[key][1] = round(submission[key][0] * 100, 0)
-        if submission[key][0] > 0.4:
-            classes[key][0] = True
-    
-    global result, default_message
-    result = classes
-    default_message = {'api': '', 'link': ''}
-    return redirect('/')
+        submission = {}
+        for class_name in class_names:                                          
+            submission[class_name] = classifier[class_name].predict_proba(test_feat)[:, 1]
+        
+        classes = {}
+        for key in submission.keys():
+            classes[key] = [False, 0]
+            classes[key][1] = round(submission[key][0] * 100, 0)
+            if submission[key][0] > 0.4:
+                classes[key][0] = True
+        
+        global result, default_message
+        result = classes
+        default_message = {'api': data, 'link': ''}
+        return redirect('/')
             
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

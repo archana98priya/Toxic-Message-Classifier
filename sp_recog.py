@@ -14,3 +14,8 @@ def get_speech(filename):
     
     except sr.RequestError as e: 
         print("Could not request results from Google Speech Recognition service; {0}".format(e)) 
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = set(['wav'])
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
