@@ -7,6 +7,7 @@
 - Numpy
 - Scikit Learn
 - bs4
+- SpeechRecognition, pyaudio
 
 ### How to run
 `$ python server.py`
