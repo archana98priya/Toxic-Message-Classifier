@@ -63,20 +63,6 @@ for class_name in class_names:
     filename='model_'+class_name+'.pkl'
     pickle.dump(classifier[class_name], open(filename,'wb'))
 
-# Custom input
-# testing_text = ["Yo bitch Ja Rule is more succesful then you'll ever be whats up with you and hating you sad mofuckas...i should bitch slap ur pethedic white faces and get you to kiss my ass you guys sicken me. Ja rule is about pride in da music man. dont diss that shit on him. and nothin is wrong bein like tupac he was a brother too...fuckin white boys get things right next time.,"]
-# test_pd = pd.DataFrame()
-# test_pd['comment_text'] = testing_text
-# test_pd = test_pd['comment_text']
-# test_pd
-
-# test_feat = word_vectorizer.transform(test_pd)
-# test_feat
-
-# test_feat = hstack([test_feat])
-
-# test_data = pd.DataFrame()
-
 # Loading the model
 sub={}
 for class_name in class_names:

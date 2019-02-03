@@ -6,6 +6,7 @@
 - Pandas
 - Numpy
 - Scikit Learn
+- bs4
 
 ### How to run
 `$ python server.py`
